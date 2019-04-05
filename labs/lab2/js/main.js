@@ -17,17 +17,16 @@ var Stamen_TonerLite = L.tileLayer(basemapURL, {
 }).addTo(map);
 
 
-var url = 'https://api.openaq.org/v1/measurements?country=FI&parameter=o3&order_by=value';
+var url = 'https://api.openaq.org/v1/latest?country=FI&parameter=o3&order_by=measurements';
 var jsondata;
 $.ajax(url).done(function(res) {
   jsondata = res;
-  // jsondata.results.forEach(function(feature){
-  //   L.marker([feature.coordinates.latitude, feature.coordinates.longitude]).addTo(map);
-  // });
   var best = jsondata.results[Object.keys(jsondata.results)[0]];
-  var bestPopup = "<h2 style='margin-bottom:0;'>Best Air Quality</h2><b>City: </b>" + best.city + "<br> <b>Ozone: </b>" + best.value + " " + best.unit;
+  var bestPopup = "<h2 style='margin-bottom:0;'>Best Air Quality</h2><b>City: </b>" + best.city +
+    "<br> <b>Ozone: </b>" + best.measurements[0].value + " " + best.measurements[0].unit;
   var worst = jsondata.results[Object.keys(jsondata.results)[jsondata.results.length-1]];
-  var worstPopup = "<h2 style='margin-bottom:0;'>Worst Air Quality</h2><b>City: </b>" + worst.city + "<br> <b>Ozone: </b>" + worst.value + " " + worst.unit;
+  var worstPopup = "<h2 style='margin-bottom:0;'>Worst Air Quality</h2><b>City: </b>" + worst.city +
+    "<br> <b>Ozone: </b>" + worst.measurements[0].value + " " + worst.measurements[0].unit;
   L.marker([best.coordinates.latitude,best.coordinates.longitude]).bindPopup(bestPopup).addTo(map);
   L.marker([worst.coordinates.latitude,worst.coordinates.longitude]).bindPopup(worstPopup).addTo(map);
 });
