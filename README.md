@@ -14,6 +14,8 @@
   - Overview, and exploration
     - Adding turf points to a map, adding a buffer
   - [Example](/example) (Just an example of a more advanced app using Turf.)
+  - [Turf.js](http://turfjs.org/docs/) documentation is good
+  - [But here](http://jseppi.github.io/intro-to-turf/) is an additional resource with more examples
 - Use Turf to make an interactive app for counting points by area
 - [Lab](/labs/lab1)
 
