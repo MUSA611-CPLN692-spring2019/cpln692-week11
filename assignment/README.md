@@ -2,7 +2,9 @@
 
 Your assignment this week is to write a detailed proposal for your final
 project. In proposing your final, try to address each of the following
-areas.
+areas.   
+  
+You can record it by editing this markdown file or creating a new one.
 
 ## Problem / Question
 
