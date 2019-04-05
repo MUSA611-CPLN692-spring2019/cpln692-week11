@@ -1,0 +1,44 @@
+body {
+    padding: 0;
+    overflow: hidden;
+    font-family: colfax, helvetica, arial, sans-serif;
+}
+
+.map {
+    position: absolute;
+    right: 0px;
+    left: 340px;
+    height: 100%;
+    top: 0;
+}
+
+.sidebar {
+    position: absolute;
+    left: 0px;
+    width: 340px;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-weight: normal;
+    color: #666;
+    margin-top: 10px,
+}
+
+.street-selected path {
+  -webkit-animation: active 5s ease-out;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes active {
+    0% {opacity: 1;}
+    50% {opacity: 1; stroke-width: 10;}
+    100% {opacity: 1;}
+}

@@ -1,0 +1,93 @@
+body {
+    padding: 0;
+    overflow: hidden;
+    font-family: colfax, helvetica, arial, sans-serif;
+}
+
+#map {
+    position: absolute;
+    right: 0px;
+    left: 340px;
+    height: 100%;
+    top: 0;
+}
+
+.sidebar {
+    position: absolute;
+    left: 0px;
+    width: 340px;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+<<<<<<< Updated upstream
+||||||| merged common ancestors
+#filter-status {
+    word-wrap: break-word;
+}
+
+.leaflet-marker-icon {
+    border:3px solid rgba(255,255,255,0.5);
+    border-radius:50%;
+}
+
+.Africa {
+    background-color: #0B3F21
+}
+
+.Asia {
+    background-color: #60501F
+}
+
+.NorthAmerica {
+    background-color: #2D5114
+}
+
+.CentralAmerica {
+    background-color: #70312B
+}
+
+.SouthAmerica {
+    background-color: #827C3B
+}
+
+.Europe {
+    background-color: #5E914D
+}
+
+.Antarctica {
+    background-color: #5DA385
+}
+
+.Australia {
+    background-color: #7096B2
+}
+
+.UM {
+    background-color: #9789C1
+}
+
+=======
+h1 {
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-weight: normal;
+    color: #666;
+    margin-top: 10px,
+}
+
+.street-selected path {
+  -webkit-animation: active 5s ease-out;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes active {
+    0% {opacity: 1;}
+    50% {opacity: 1; stroke-width: 10;}
+    100% {opacity: 1;}
+}
+>>>>>>> Stashed changes
