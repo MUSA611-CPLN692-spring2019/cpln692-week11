@@ -1,4 +1,9 @@
 # Final Project Proposal:
+
+# Actually, you can disregard everything written below. Jonathan Yuan and I will be working together, utilizing a project from another class (MUSA Practicum). Jonathan's file has our complete final project outline.
+
+
+
 # Using OpenStreetMap data to measure amenitization in New York City
 
 ## Problem / Question
