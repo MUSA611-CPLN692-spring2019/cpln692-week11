@@ -32,8 +32,11 @@ any library not explicitly covered in class) for functions/uses which
 you'd like to explore. Briefly describe how you might use them.
 
 *jQuery - based on user input, we will map certain risk levels and show information for areas over which you hover/click.*
+
 *turf - buffers for venue locations based on a user-defined buffer distance to show "impact" of each location*
+
 *underscore - for filtering functions*
+
 *mapbox - for aesthetics and cool visualizations*
 
 ## Design spec
@@ -46,7 +49,9 @@ At a high level, how do you expect people to use your application?
 - Are there any website/application examples in the wild to which you can compare your final?
 
 *Users: Louisville Fire Department*
+
 *Gain: actionable visualization of our predictive model - to help them decide where to locate effective educational outreach programs*
+
 *Reference: https://cdn.rawgit.com/YayinC/Quantify-Bike-Share-Demand-Web-App/master/*
 
 #### Layouts and visual design
