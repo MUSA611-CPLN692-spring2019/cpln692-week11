@@ -46,7 +46,7 @@ OpenData Syracuse provides data in CSV and GeoJSON format. This data has previou
 
 #### So far, we've built all our applications with a side bar for representing non-map content and navigation. This is not the only successful design. Extra content could be displayed in a top bar, through side bars on both sides, and any combination of these as well as a number not mentioned. Try to describe your application's visual layout. Conceptually (no need for extensive CSS here), what will this design require?
 
-![wireframe](Capture.png)
+![wireframe](Capture.PNG)
 
 ## Anticipated difficulties
 
