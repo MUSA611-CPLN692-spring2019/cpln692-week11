@@ -53,6 +53,32 @@ Take a look here: https://docs.mapbox.com/api/navigation/#isochrone
 
 // Global Variables
 var myFeatures;
+var buffer;
+
+$.ajax('https://www.rideindego.com/stations/json/').done(function(res) {
+  L.geoJSON(res).addTo(map);
+
+  // Event which is run every time Leaflet draw creates a new layer
+  map.on('draw:created', function (e) {
+      if(myFeatures) { map.removeLayer(myFeatures); }
+      if(buffer) { map.removeLayer(buffer); }
+
+      var type = e.layerType; // The type of shape
+      var layer = e.layer; // The Leaflet layer for the shape
+      var id = L.stamp(layer); // The unique Leaflet ID for the layer
+
+      myFeatures = layer;
+      map.addLayer(myFeatures);
+
+      if (type == 'rectangle') {
+        console.log(turf.pointsWithinPolygon(res, myFeatures.toGeoJSON()).features.length);
+      }
+      if (type == 'marker') {
+        buffer = L.geoJSON(turf.buffer(myFeatures.toGeoJSON(), $('#buffer').val(), {units: 'kilometers'})).addTo(map);
+        alert("Number of points within buffer: " + turf.pointsWithinPolygon(res, buffer.toGeoJSON()).features.length);
+      }
+  });
+});
 
 // Initialize Leaflet Draw
 var drawControl = new L.Control.Draw({
@@ -67,15 +93,3 @@ var drawControl = new L.Control.Draw({
 });
 
 map.addControl(drawControl);
-
-// Event which is run every time Leaflet draw creates a new layer
-map.on('draw:created', function (e) {
-    if(myFeatures) {
-      map.removeLayer(myFeatures);
-    }
-    var type = e.layerType; // The type of shape
-    layer = e.layer; // The Leaflet layer for the shape
-    var id = L.stamp(layer); // The unique Leaflet ID for the layer
-    myFeatures = layer;
-    map.addLayer(myFeatures);
-});
