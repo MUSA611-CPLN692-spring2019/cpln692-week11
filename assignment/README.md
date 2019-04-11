@@ -46,13 +46,21 @@ OpenData Syracuse provides data in CSV and GeoJSON format. This data has previou
 
 #### So far, we've built all our applications with a side bar for representing non-map content and navigation. This is not the only successful design. Extra content could be displayed in a top bar, through side bars on both sides, and any combination of these as well as a number not mentioned. Try to describe your application's visual layout. Conceptually (no need for extensive CSS here), what will this design require?
 
-![wireframe](Capture.PNG)
+![wireframe](Capture.PNG)  
+
+There will be three main views: 1) Syracuse at-a-glance, 2) individual district, and 3) parcel detail.  
+
+| View                 | Map                                                                     | Sidebar                                                  |
+| -------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------- |
+| Syracuse at-a-glance | Zoomed-out display of 22 inspection districts spanning all of the city. | Summary of each district's risk.                        |
+| Individual district  | Zoom in to one the selected district. Parcels colored by risk level.    | A sorted list of the parcels in the selected district. |
+| Parcel detail        | Further zoom in to the individual parcel.                               | A dashboard display of parcel details.               |
 
 ## Anticipated difficulties
 
 #### Thinking about weaknesses can be useful. What do you anticipate being most difficult about this project? How will you attempt to cope with these difficulties? For example, asynchronous behavior (ajax, events) are hard to use and think about. Global variables are a strategy for coping with that difficulty by breaking data out of the asynchronous context.
 
-- Interactive display and styling of map layers will be a hurdle. There will be three main views: 1) Syracuse at-a-glance, 2) individual district, and 3) parcel detail. Depending on the action of the user, certain layers will have to be hidden, displayed, or styled in a certain way. The sidebar will also have to reflect the current state of the map.  
+- Interactive display and styling of map layers will be a hurdle. Depending on the action of the user, certain layers will have to be hidden, displayed, or styled in a certain way. The sidebar will also have to reflect the current state of the map.  
 - The city of Syracuse has 40,000+ parcels. Because it is difficult to display this volume of polygons, only the relevant portion of this dataset should be served when the user asks for it. Server-side scripting or asynchronous JS may be necessary.
 
 ## Missing pieces
