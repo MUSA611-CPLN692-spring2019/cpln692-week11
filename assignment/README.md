@@ -1,50 +1,61 @@
 # Final Project Proposal
 
-Your assignment this week is to write a detailed proposal for your final
-project. In proposing your final, try to address each of the following
-areas.   
-  
-You can record it by editing this markdown file or creating a new one.
+Yixuan Hu
 
-## Problem / Question
-
-Applications are ultimately just tools. What problem or question does
-your application attempt to resolve or grapple with? How does your
-application speak to this problem/question?
+## Problem / Question / Motivation
+For a historical city like Athens, merely contemporary street maps is not enough for travel planners and history lovers to explore the beauty of Athens.  
+Therefore, I hope to create an ultimate map guide of Athens, including current maps, historical maps of Athens, a detailed map of Agora (the worship/public space), attractions from the Archaic period to Roman period. With the intuitive interaction, users can easily see the historical photos of attractions, changes of landscape from historical maps, and check other attractions within 10min walk distance.
 
 ## The data
 
-Geospatial applications are all about working with data. What datasets
-would you plan/like to use? If the data you'll be working with isn't
-already stored in a way that you can use, how will you be storing your data?
+__Raster Data__  
+Ideally, raster files (.geoTiffs) are hosted on the cloud.
+* Geo-referenced map of Athens by Curtius and Kaupert. Refer here: https://map.athenswesternhills.org/
+* Geo-referenced map of Athenian Agora. Refer here: https://yixuanhu0106.github.io/agora.html  
+
+__Vector Data__  
+I hope to store all vector data in a database (e.g. PostgreSQL w/ PostGIS) and query the spatial information/attribute out when needed. 
+* Outlines (polygons) of famous attractions in Athens. Attributes include: period, name, estimated built time, creator, and historical photos/plans.  
+* Centriods (points) of smaller attractions. Attributes include: period, name, estimated built time and creator.  
 
 ## Technologies used
 
-Which technologies covered in class (or discovered on your own!) do you
-plan to use? How do you anticipate using each of these technologies?
+__Data Wrangling__:  
+* Geo-reference with _QGIS_
+* Create vector data with _QGIS_
+* Manage database with _PostgreSQL_
 
-Review the APIs/online examples of leaflet, turf, jQuery, underscore (or
-any library not explicitly covered in class) for functions/uses which
-you'd like to explore. Briefly describe how you might use them.
+__Web Mapping__:
+* Posting geoTiffs with _MapBox/geotiff.js/leaflet-geotiff plugin_  
+* Web mapping with _Leaflet_
+  * If it's hard with Leaflet, consider use _openlayers_ as framework.
+
+__Interaction/analysis__:
+* _turf.js_ for spatial analysis
+* _MapBox_ for generating walking distance
+* _JQuary_ for interaction  
+
+and use _underscore.js_ everywhere  
+
 
 ## Design spec
 
 #### User experience
 
 At a high level, how do you expect people to use your application?
-- Who are the users?
-- What do they gain from your application' use?
-- Are there any website/application examples in the wild to which you can compare your final?
+- Who are the users?  
+  - Future visitors to Athens and Athenian history lovers
+- What do they gain from your application' use?  
+  - One destination of all attractions at Athens on map  
+  - Clear sense of the transformance during the over 800 years of ancient Athenian history
+  - Smart planning tool for their visit to Athens
+- Are there any website/application examples in the wild to which you can compare your final?  
+  - For historical maps: https://map.athenswesternhills.org/  
+  - For tourist maps: https://www.introducingparis.com/map
 
 #### Layouts and visual design
 
-So far, we've built all our applications with a side bar for
-representing non-map content and navigation. This is not the only
-successful design. Extra content could be displayed in a top bar,
-through side bars on both sides, and any combination of
-these as well as a number not mentioned. Try to describe your
-application's visual layout. Conceptually (no need for extensive CSS
-here), what will this design require?
+Map on the full screen, an expansible information bar (about 1/4-1/3 of width) on the left, and map controls on the right side on top of the map. The information bar has two sections: title on the top, information/introduction of the attraction user selected on the lower part. map controls include historical map adjustment tools (e.g. transparency) in the middle, legend, etc. A button to show other attractions within walking distance will show up on the left bar.  
 
 ## Anticipated difficulties
 
@@ -53,13 +64,13 @@ most difficult about this project? How will you attempt to cope with
 these difficulties? For example, asynchronous behavior (ajax, events)
 are hard to use and think about. Global variables are a strategy for
 coping with that difficulty by breaking data out of the asynchronous
-context.
+context.  
+__Data__:  
+Generating the data raster/vector data may be time-consuming.  
+How to load georeferenced geoTiff images onto the map, while preserving the accuracy and making it zoomable? I'll try different plugins to solve this problem.  
+__Interaction__:  
+How to better deal with asynchronous behavior? I can start with log to console to have a better understanding of the sequence.
 
 ## Missing pieces
 
-We've only managed to scratch the surface of the available technologies
-by which you could construct an application. What use-cases haven't we covered
-that you think would be useful? What technologies not covered seem exciting to
-you (you don't necessarily have to fully understand what they're for,
-this is a chance for you to get our help interpreting a technology's
-purpose/usage).
+I really hope we can talk more about the server end of web development, especially retrieving data from server-end database and deployment.
