@@ -78,4 +78,23 @@ map.on('draw:created', function (e) {
     var id = L.stamp(layer); // The unique Leaflet ID for the layer
     myFeatures = layer;
     map.addLayer(myFeatures);
+
+    if(type == 'marker'){
+      var buffered = turf.buffer(myFeatures.toGeoJSON(), 1, {units: 'miles'});// Task 3
+      myFeatures = L.geoJSON(buffered);
+    }
+    map.addLayer(myFeatures);
+    ptsWithin = turf.pointsWithinPolygon(parsedData, myFeatures.toGeoJSON());// Task 2
+    console.log(ptsWithin.features.length);
 });
+
+
+// Task 1
+var parsedData;
+$.ajax('https://www.rideindego.com/stations/json/').done(function(dat){
+    parsedData = dat;
+    bikeLayer = L.geoJSON(parsedData);
+    bikeLayer.addTo(map);
+  })
+
+// Task 3

@@ -90,3 +90,8 @@ city based on the value.
 
 
  ===================== */
+
+refined = allthedata.results.map((dat)=>{return{location:dat,location,city:dat.city,coords;dat.coordinates,measure:dat.measurements.vslue}})
+
+
+refined.forEach((ref)=>{L.marker(ref.latitude,ref.longitude).bindPopup('CITY:${ref.city} MEASURE:${ref.measure}').addTo(map)});

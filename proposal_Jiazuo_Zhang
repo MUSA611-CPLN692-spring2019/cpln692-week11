@@ -1,0 +1,26 @@
+FINAL PROPOSAL
+
+1.The problem
+Although Philadelphia is not the most dangerous cities in the U.S, the gun violence is
+still threatening residents. From 2015 to 2018, over 1200 victims were reported annually.
+There might be  some relationship of gun violence to demographic or spatial patterns.
+I'm planning to establish a map showing these patterns of Philadelphia, gunshot data, and
+the rate of gunshot crime.
+
+2.The data
+The data are from these websites:
+OpenDataPhilly Parks & Recreation Assets: https://www.opendataphilly.org/dataset/parks-and-recreation-assets
+OpenDataPhilly Shooting Victims: https://www.opendataphilly.org/dataset/shooting-victims
+PASDA Philadelphia Aerial Photography 2018: http://www.pasda.psu.edu/uci/DataSummary.aspx?dataset=2019
+PASDA Philadelphia Park Boundaries: http://www.pasda.psu.edu/uci/ DataSummary.aspx?dataset=1582
+Philadelphia Buildings 2017: https://www.pasda.psu.edu/uci/DataSummary.aspx?dataset=146
+Philadelphia Census Block Groups 2010: https://www.opendataphilly.org/dataset/census-block-groups
+Property Assessments https://www.opendataphilly.org/dataset/opa-property-assessments
+I'll try to find out if they are more appropriate to be used in json or geojson type.
+
+3.Technologies used
+leaflet, turf.js, jQuery, html/css......
+
+4.Design spec
+The users are supposed to be residents, tourists or department officials who concern about Philly's public safety.
+The visual layout will be a map on the right and a sidebar on the left, with necessary informations.
