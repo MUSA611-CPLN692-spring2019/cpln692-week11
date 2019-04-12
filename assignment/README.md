@@ -1,65 +1,50 @@
 # Final Project Proposal
 
-Your assignment this week is to write a detailed proposal for your final
-project. In proposing your final, try to address each of the following
-areas.   
-  
-You can record it by editing this markdown file or creating a new one.
-
 ## Problem / Question
 
-Applications are ultimately just tools. What problem or question does
-your application attempt to resolve or grapple with? How does your
-application speak to this problem/question?
+What is the best airbnb unit (general location) when travelling to Barcelona, Spain? 
 
 ## The data
-
-Geospatial applications are all about working with data. What datasets
-would you plan/like to use? If the data you'll be working with isn't
-already stored in a way that you can use, how will you be storing your data?
+I will use Inside Airbnb api http://insideairbnb.com/get-the-data.html
+I will convert .csv files to .Geojson files in the pre-processing step.
 
 ## Technologies used
 
-Which technologies covered in class (or discovered on your own!) do you
-plan to use? How do you anticipate using each of these technologies?
-
-Review the APIs/online examples of leaflet, turf, jQuery, underscore (or
-any library not explicitly covered in class) for functions/uses which
-you'd like to explore. Briefly describe how you might use them.
+I am expected to use most of the skills and techniques covered in class,
+including leaflet(plug-ins), mapbox api, turf (e.g. buffer), jQuery, 
+underscore, etc. 
 
 ## Design spec
 
 #### User experience
 
-At a high level, how do you expect people to use your application?
-- Who are the users?
-- What do they gain from your application' use?
-- Are there any website/application examples in the wild to which you can compare your final?
+The application is designed for travellers who are looking for airbnb 
+units to reside.The users will be able to compare prices of selected 
+units; filtering units by price range, by overall ratings; get information
+of landmarks, shopping centers, place-of-interests within a certain 
+distance (buffer); generate route to the targeted tourism site, etc.
+
 
 #### Layouts and visual design
 
-So far, we've built all our applications with a side bar for
-representing non-map content and navigation. This is not the only
-successful design. Extra content could be displayed in a top bar,
-through side bars on both sides, and any combination of
-these as well as a number not mentioned. Try to describe your
-application's visual layout. Conceptually (no need for extensive CSS
-here), what will this design require?
+The application will be mainly divided into 2 parts. A map including 
+airbnb units,neighborhood boundaries, landmarks (could be turned on 
+and off) and a sidebar that allows users to interact with the map. 
+Some features such as slidebars, filters, detailed information, etc.
+will be displayed within this section.
+
 
 ## Anticipated difficulties
 
-Thinking about weaknesses can be useful. What do you anticipate being
-most difficult about this project? How will you attempt to cope with
-these difficulties? For example, asynchronous behavior (ajax, events)
-are hard to use and think about. Global variables are a strategy for
-coping with that difficulty by breaking data out of the asynchronous
-context.
+Since the datasets constain a lot of information, it will be challenging
+to select the most useful information to display on the map. 
 
 ## Missing pieces
 
-We've only managed to scratch the surface of the available technologies
-by which you could construct an application. What use-cases haven't we covered
-that you think would be useful? What technologies not covered seem exciting to
-you (you don't necessarily have to fully understand what they're for,
-this is a chance for you to get our help interpreting a technology's
-purpose/usage).
+The dataset missing the real-time piece as it is impossible to know whether 
+the unit is currently availble or not during the targeted time range. The 
+users cannot directly book an unit or check the unit availability through 
+the app. The final application can only serve as a tool that allow users to 
+know the airbnb market in Barcelona, Spain and compare units based on the 
+latesrt available price and distance to tourism sites. 
+
