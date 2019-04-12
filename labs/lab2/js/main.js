@@ -2,9 +2,10 @@
 Leaflet Configuration
 ===================== */
 
+// Adjust the starting position to see the points
 var map = L.map('map', {
-  center: [39.95, -75.16],
-  zoom: 14
+  center: [39.95, -98.16],
+  zoom: 4
 });
 basemapURL = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
 
@@ -16,11 +17,44 @@ var Stamen_TonerLite = L.tileLayer(basemapURL, {
   ext: 'png'
 }).addTo(map);
 
-
-var url = '';
+// create a map of O3
+var url = 'https://api.openaq.org/v1/latest?country=US';
 var jsondata;
 $.ajax(url).done(function(res) {
   jsondata = res;
+  _.each(jsondata["results"], function(json){
+    lat = json['coordinates']["latitude"];
+    lon = json['coordinates']["longitude"];
+
+    // get the value of different AQ parameters
+    var measurement = []
+    _.each(json["measurements"], function(m){
+      piece = [];
+      piece.push(m['parameter']);
+      piece.push(m['value'])
+      measurement.push(piece)
+    })
+
+    // the value of O3. To map other parameters, simply change m[0]
+    var value;
+    _.each(measurement, function(m){
+      if(m[0] == 'o3') {
+        value = m[1]
+      }
+    })
+    markerOption = {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.4,
+      radius: value*5000000
+    }
+    if(value != undefined){
+      L.circle([lat, lon], markerOption).addTo(map).bindPopup(
+        "City Name: " + json['city'] + "<br>" +
+        "O3: " + value
+      );
+    }
+  })
 });
 
 

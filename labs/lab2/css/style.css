@@ -1,7 +1,7 @@
 body {
     padding: 0;
     overflow: hidden;
-    font-family: colfax, helvetica, arial, sans-serif;
+    font-family: cambria;
 }
 
 p.main {
@@ -15,6 +15,7 @@ p.main {
     height: 100%;
     top: 0;
 }
+
 
 .sidebar {
     position: absolute;
