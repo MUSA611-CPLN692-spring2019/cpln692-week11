@@ -17,10 +17,18 @@ var Stamen_TonerLite = L.tileLayer(basemapURL, {
 }).addTo(map);
 
 
-var url = '';
+var url = 'https://api.openaq.org/v1/latest?country=US&parameter=pm25&limit=1100&has_geo=true&order_by=measurements';
 var jsondata;
 $.ajax(url).done(function(res) {
   jsondata = res;
+  var best = jsondata.results[Object.keys(jsondata.results)[0]];
+  var bestPopUp="<h2>Best Air Quality</h2><b>City:</b>" + best.city + best.measurements[0].value + best.measurements[0].unit;
+
+  var worst = jsondata.results[Object.keys(jsondata.results)[jsondata.length-1]];
+  var worstPopUp="<h2>Worst Air Quality</h2><b>City:</b>" + worst.city + worst.measurements[0].value + worst.measurements[0].unit;
+
+  L.marker([best.coordinates.latitude, best.coordinates.longitude]).bindPopup(bestPopUp).addTo(map);
+  L.marker([worst.coordinates.latitude, worst.coordinates.longitude]).bindPopup(worstPopUp).addTo(map);
 });
 
 
