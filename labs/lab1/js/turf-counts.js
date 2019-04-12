@@ -53,6 +53,7 @@ Take a look here: https://docs.mapbox.com/api/navigation/#isochrone
 
 // Global Variables
 var myFeatures;
+var ptsWithin;
 
 // Initialize Leaflet Draw
 var drawControl = new L.Control.Draw({
@@ -68,6 +69,12 @@ var drawControl = new L.Control.Draw({
 
 map.addControl(drawControl);
 
+
+var parsedData;
+$.ajax("https://www.rideindego.com/stations/json/").done(function(dat) {
+  parsedData = dat;
+  L.geoJSON(parsedData).addTo(map)});
+
 // Event which is run every time Leaflet draw creates a new layer
 map.on('draw:created', function (e) {
     if(myFeatures) {
@@ -77,5 +84,17 @@ map.on('draw:created', function (e) {
     layer = e.layer; // The Leaflet layer for the shape
     var id = L.stamp(layer); // The unique Leaflet ID for the layer
     myFeatures = layer;
+
+
+    if(type == 'marker') {
+      console.log('you just created a marker');
+      var buffer = turf.buffer(myFeatures.toGeoJSON(), 1, {units: 'miles'});
+      myFeatures = L.geoJSON(buffer);
+    }
+
+
     map.addLayer(myFeatures);
+    console.log(e);
+    ptsWithin = turf.pointsWithinPolygon(parsedData, myFeatures.toGeoJSON());
+    console.log(ptsWithin.features.length);
 });

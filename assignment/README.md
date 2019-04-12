@@ -3,63 +3,60 @@
 Your assignment this week is to write a detailed proposal for your final
 project. In proposing your final, try to address each of the following
 areas.   
-  
+
 You can record it by editing this markdown file or creating a new one.
 
 ## Problem / Question
 
-Applications are ultimately just tools. What problem or question does
-your application attempt to resolve or grapple with? How does your
-application speak to this problem/question?
+To empower house buyers in Detroit with enough information about the amenities (schools, parks, recreation center, historic district, etc.) of the neighborhood.
+
 
 ## The data
 
-Geospatial applications are all about working with data. What datasets
-would you plan/like to use? If the data you'll be working with isn't
-already stored in a way that you can use, how will you be storing your data?
+- The GeoJSON data can be downloaded from data.detroitmi.gov
+- There is Parcel Data available on that data portal so I might consider using that as the base map.
+
 
 ## Technologies used
 
 Which technologies covered in class (or discovered on your own!) do you
 plan to use? How do you anticipate using each of these technologies?
 
-Review the APIs/online examples of leaflet, turf, jQuery, underscore (or
-any library not explicitly covered in class) for functions/uses which
-you'd like to explore. Briefly describe how you might use them.
+- leaflet draw
+  so that users can pin the location of the house they are looking at
+- leaflet geocoding
+  so that users can also find the houses on the map through address searching
+- Turf counting
+  To count the total number of a certain type of amenities within the walking/10-min-drive distance of the house
+- Route Optimization
+  for the users to see the houses' accessibility to its nearby amenities
+
 
 ## Design spec
 
 #### User experience
 
-At a high level, how do you expect people to use your application?
-- Who are the users?
+- Who are the users? People who are house searching.
+
 - What do they gain from your application' use?
+
+House buyers should be able to put in the location of the house they are looking at (or drop the marker) and get to know all the amenities within a certain distance. By clicking on the marked amenities on the map people should be able to see detailed information. They should also be able to use a filter to choose what kind of park (regional or community-serving) or which level of school (K-8 or 9-12) they really need, and search by name for the park or historic district they want to take a look at.
+
 - Are there any website/application examples in the wild to which you can compare your final?
+Maybe something a bit more complicated than this:
+http://envision.cambridgema.gov/engagement-data/
+
+
 
 #### Layouts and visual design
 
-So far, we've built all our applications with a side bar for
-representing non-map content and navigation. This is not the only
-successful design. Extra content could be displayed in a top bar,
-through side bars on both sides, and any combination of
-these as well as a number not mentioned. Try to describe your
-application's visual layout. Conceptually (no need for extensive CSS
-here), what will this design require?
+In addition to a side bar this application should also have a tool bar to navigate users through different kind of information they want to obtain from this app (e.g. parks and rec, schools, demolition plan, historic district, etc). The tool bar will be a small horizontal box with several icons on it. below the tool bar is the side bar area where detailed information can be displayed. I am also thinking about hiding the side bar for most of the time and only pull it up when new information has been  requested.
 
 ## Anticipated difficulties
 
-Thinking about weaknesses can be useful. What do you anticipate being
-most difficult about this project? How will you attempt to cope with
-these difficulties? For example, asynchronous behavior (ajax, events)
-are hard to use and think about. Global variables are a strategy for
-coping with that difficulty by breaking data out of the asynchronous
-context.
+Data format will not be a problem, hopefully. The difficulties are more likely to fall in the organization of different data source and how to put together different layers of data visualization.
+
 
 ## Missing pieces
 
-We've only managed to scratch the surface of the available technologies
-by which you could construct an application. What use-cases haven't we covered
-that you think would be useful? What technologies not covered seem exciting to
-you (you don't necessarily have to fully understand what they're for,
-this is a chance for you to get our help interpreting a technology's
-purpose/usage).
+Maybe more from a CSS perspective, how to make toolbars/sidebars more interactive.
