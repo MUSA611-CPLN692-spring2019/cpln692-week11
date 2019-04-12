@@ -49,10 +49,17 @@ Take a look here: https://docs.mapbox.com/api/navigation/#isochrone
 
 ===================== */
 
-
-
 // Global Variables
 var myFeatures;
+var buffer;
+var parsedData;
+
+$.ajax("https://www.rideindego.com/stations/json/").done(function(dat) {
+  parsedData = dat;
+  var bikeLayer = L.geoJSON(parsedData);
+  bikeLayer.addTo(map);
+});
+
 
 // Initialize Leaflet Draw
 var drawControl = new L.Control.Draw({
@@ -77,5 +84,16 @@ map.on('draw:created', function (e) {
     layer = e.layer; // The Leaflet layer for the shape
     var id = L.stamp(layer); // The unique Leaflet ID for the layer
     myFeatures = layer;
-    map.addLayer(myFeatures);
+    var radius = $('#radius').val();
+    if (type=='marker'){
+      buffer = turf.buffer(myFeatures.toGeoJSON(), radius, {units: 'miles'});
+      myFeatures = L.geoJSON(buffer);
+      map.addLayer(myFeatures);
+    }
+
+
+
+    var ptsWithin = turf.pointsWithinPolygon(parsedData, myFeatures.toGeoJSON());
+    $('#stationNumber').text(ptsWithin.features.length);
+
 });

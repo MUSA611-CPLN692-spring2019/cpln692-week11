@@ -3,8 +3,8 @@ Leaflet Configuration
 ===================== */
 
 var map = L.map('map', {
-  center: [39.95, -75.16],
-  zoom: 14
+  center: [38.906876, -77.040035],
+  zoom: 8
 });
 basemapURL = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
 
@@ -17,11 +17,49 @@ var Stamen_TonerLite = L.tileLayer(basemapURL, {
 }).addTo(map);
 
 
-var url = '';
+var url = 'https://api.openaq.org/v1/latest?country=US&parameter=so2&limit=1000&has_geo=true&order_by=value';
 var jsondata;
+var refined;
+
+var greenIcon = L.icon({
+    iconUrl: 'http://maps.google.com/mapfiles/kml/paddle/grn-stars.png',
+    iconSize:     [58, 58], // size of the icon
+});
+
+var redIcon = L.icon({
+    iconUrl: 'http://maps.google.com/mapfiles/kml/paddle/red-stars.png',
+    iconSize:     [58, 58], // size of the icon
+});
+
+var ordinaryIcon = L.icon({
+    iconUrl: 'http://maps.google.com/mapfiles/kml/paddle/orange-blank.png',
+    iconSize:     [38, 38], // size of the icon
+});
+
 $.ajax(url).done(function(res) {
   jsondata = res;
+  refined = jsondata.results.map(function(dat) {
+    return {
+      loation: dat.location,
+      city: dat.city,
+      coords: dat.coordinates,
+      measure: dat.measurements[0].value,
+      unit: dat.measurements[0].unit
+    };
+  });
+
+  refined.forEach(function(ref) {
+    L.marker([ref.coords.latitude, ref.coords.longitude],{icon: ordinaryIcon}).bindPopup('<b>City: </b>'+ ref.city + '<br> <b>SO2 Value: </b>'+ ref.measure+ ' '+ ref.unit).addTo(map);
+  });
+
+  var lowest = jsondata.results[Object.keys(jsondata.results)[0]];
+  var highest = jsondata.results[Object.keys(jsondata.results)[jsondata.results.length-1]];
+  L.marker([lowest.coordinates.latitude,lowest.coordinates.longitude],{icon: greenIcon}).bindPopup('<b>Lowest City: </b>'+ lowest.city + '<br> <b>SO2 Value: </b>'+ lowest.measurements[0].value+ ' '+ lowest.measurements[0].unit).addTo(map);
+  L.marker([highest.coordinates.latitude,highest.coordinates.longitude],{icon: redIcon}).bindPopup('<b>Highest City: </b>'+ highest.city + '<br> <b>SO2 Value: </b>'+ highest.measurements[0].value+ ' '+ highest.measurements[0].unit).addTo(map);
 });
+
+
+
 
 
 /* =====================
