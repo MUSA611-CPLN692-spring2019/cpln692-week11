@@ -51,8 +51,10 @@ Take a look here: https://docs.mapbox.com/api/navigation/#isochrone
 
 
 
-// Global Variables
+ // Global Variables
+var parsedData;
 var myFeatures;
+var ptsWithin;
 
 // Initialize Leaflet Draw
 var drawControl = new L.Control.Draw({
@@ -77,5 +79,36 @@ map.on('draw:created', function (e) {
     layer = e.layer; // The Leaflet layer for the shape
     var id = L.stamp(layer); // The unique Leaflet ID for the layer
     myFeatures = layer;
+
+    if(type == 'marker') { //Means "if the user drops a marker on the map, then..."
+      //Task 3 (commented out, but works when not commented):
+      //var buffer = turf.buffer(myFeatures.toGeoJSON(), 1, {units: 'kilometers'}); //"...create a 1 km buffer around that marker they drop, call it 'buffer' in the code, and then..."
+      //myFeatures = L.geoJSON(buffer); //..."finally make a geoJSON of that buffer and add it to the map"
+      //End of Task 3
+
+      //Task 4:
+      var bufferDistance = $('#distance').val(); //Gets user inputted distance number and stores it in this variable
+      var bufferUnits = $('#units').val(); //Gets user inputted unit type (ex. miles, kilometers, etc.) and stores it in this variable
+      var units = {units: bufferUnits}; //Puts the user inputted unit type into the turf buffer command below.
+
+      var buffer = turf.buffer(myFeatures.toGeoJSON(), bufferDistance, units); //Makes it so the user can control the buffer length and unit type. I originally tried it as say "turf.buffer(myFeatures.toGeoJSON(), bufferDistance, units: "bufferUnits")" but JavaScript kept thinking this would mean say draw a buffer of "1 bufferUnits" if the user would put 1 for bufferDistance for example. However, doing it using the options variable makes it work. I found out how to do it from http://turfjs.org/docs/#buffer basically
+      myFeatures = L.geoJSON(buffer);
+      //End of Task 4
+    }
+
     map.addLayer(myFeatures);
+
+    //Task 2:
+    ptsWithin = turf.pointsWithinPolygon(parsedData, myFeatures.toGeoJSON()); //Means "define the previously undefined variable called ptswithin as how many points there are within the user-drawn rectangle"
+    console.log(ptsWithin.features.length); //Means "log to the console the length of the array that has the points that fall within the user-drawn rectangle (i.e. the number of points that fall within the user-drawn rectangle)"
+    //End of Task 2
 });
+
+
+//Task 1:
+$.ajax("https://www.rideindego.com/stations/json/").done(function(data) { //The data in https://www.rideindego.com/stations/json/ is pre-parsed, so there's no need to parse it again
+  parsedData = data; //Puts the data in that link into the previously empty parsedData variable
+  bikeLayer = L.geoJson(parsedData) //Basically renames parsedData (the bike station points) to bikeLayer so it can be referenced more logically later)
+  bikeLayer.addTo(map) //Maps the points
+})
+//End of Task 1
