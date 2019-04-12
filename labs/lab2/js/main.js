@@ -17,10 +17,23 @@ var Stamen_TonerLite = L.tileLayer(basemapURL, {
 }).addTo(map);
 
 
-var url = '';
+var url = 'https://api.openaq.org/v1/latest?country=US&parameter=pm25&limit=10000';
 var jsondata;
+var refined;
 $.ajax(url).done(function(res) {
   jsondata = res;
+  refined = jsondata.results.map(function(dat) {
+    return {
+      loation: dat.location,
+      city: dat.city,
+      coords: dat.coordinates,
+      measure: dat.measurements[0].value
+    };
+  });
+
+  refined.forEach(function(ref) {
+    L.marker([ref.coords.latitude, ref.coords.longitude]).bindPopup('CITY: '+ ref.city + '; MEASURE: '+ ref.measure).addTo(map);
+  });
 });
 
 
