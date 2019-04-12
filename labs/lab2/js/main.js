@@ -4,7 +4,7 @@ Leaflet Configuration
 
 var map = L.map('map', {
   center: [39.95, -75.16],
-  zoom: 14
+  zoom: 3
 });
 basemapURL = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
 
@@ -90,3 +90,24 @@ city based on the value.
 
 
  ===================== */
+
+ $.ajax({
+   url:'https://api.openaq.org/v1/latest?parameter=pm25&country=US&limit=1100',
+   success:function(data){
+     var allpoints = data;
+     var refined = allpoints.results.map(function(data) {
+       return {location:data.location,
+         city:data.city,
+         coords:data.coordinates,
+         measure:data.measurements[0].value}
+       });
+    var pm25Layer = _.each(refined,function(ref) {
+      L.marker([ref.coords.latitude,ref.coords.longitude]).bindPopup(`City:${ref.city},Measure:${ref.measure}`).addTo(map)});
+    var maxPm25 = _.max(refined,function(ref){
+      return ref.measure})
+    var minPm25 = _.min(refined,function(ref){
+      return ref.measure})
+      console.log(maxPm25)
+      console.log(minPm25)
+      alert(`${maxPm25.location} has the highest PM25 of ${maxPm25.measure}. And ${minPm25.location} has the lowest PM25 of ${minPm25.measure}.`)
+   }});

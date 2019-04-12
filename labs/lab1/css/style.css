@@ -42,3 +42,7 @@ h2 {
     50% {opacity: 1; stroke-width: 10;}
     100% {opacity: 1;}
 }
+
+#reset {
+  margin-top:10px;
+}

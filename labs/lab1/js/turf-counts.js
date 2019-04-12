@@ -68,7 +68,22 @@ var drawControl = new L.Control.Draw({
 
 map.addControl(drawControl);
 
+//add stop layer
+var data;
+
+$.ajax("https://www.rideindego.com/stations/json/").done(function(dat){
+  data = dat;
+  stopLayer = L.geoJSON(data).addTo(map);
+});
+
+//Add the jquery function to define the buffer size
+var bufferSize;
+$("#buffer-size").change(function (){
+  return bufferSize = $("#buffer-size").val();
+});
+
 // Event which is run every time Leaflet draw creates a new layer
+var pointInPoly;
 map.on('draw:created', function (e) {
     if(myFeatures) {
       map.removeLayer(myFeatures);
@@ -78,4 +93,20 @@ map.on('draw:created', function (e) {
     var id = L.stamp(layer); // The unique Leaflet ID for the layer
     myFeatures = layer;
     map.addLayer(myFeatures);
+
+    if (type == 'marker') {
+    var buffer = turf.buffer(myFeatures.toGeoJSON(), bufferSize, {unit:'miles'});
+    myFeatures = L.geoJSON(buffer).addTo(map)
+    }
+    var pointsWithin = turf.pointsWithinPolygon(data, myFeatures.toGeoJSON());
+    console.log(_.size(pointsWithin.features));
+    pointInPoly = L.geoJSON(pointsWithin).addTo(map);
+    map.removeLayer(stopLayer);
+    alert( `There are ${_.size(pointsWithin.features)} Indego stations within the buffer you created.` )
 });
+
+$("#reset").click(function() {
+  map.removeLayer(myFeatures);
+  map.removeLayer(pointInPoly);
+  stopLayer.addTo(map);
+})
