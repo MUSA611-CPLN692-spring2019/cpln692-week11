@@ -36,12 +36,18 @@ $.ajax('https://raw.githubusercontent.com/MUSA611-CPLN692-spring2019/datasets/ma
 
   // The data includes some strange outliers - let's limit it to the area with lots of data
   // The spatial filter produced here was produced on geojson.io (which uses leaflet draw!)
-  var spatialFilter = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[-75.22218704223633,39.885108787598114],[-75.22218704223633,39.9380402756277],[-75.13412475585938,39.9380402756277],[-75.13412475585938,39.885108787598114],[-75.22218704223633,39.885108787598114]]]}}]};
+  var spatialFilter = {"type":"FeatureCollection",
+                       "features":[{"type":"Feature",
+                                     "properties":{},
+                                     "geometry":{"type":"Polygon",
+                                     "coordinates":[[[-75.22218704223633,39.885108787598114],[-75.22218704223633,39.9380402756277],[-75.13412475585938,39.9380402756277],[-75.13412475585938,39.885108787598114],[-75.22218704223633,39.885108787598114]
+                                      ]]}}]};
   crimeData = turf.within(crimeData, spatialFilter);
 
   // Fit map to data bounds
   var mapBoundary = L.geoJson(turf.envelope(crimeData)).getBounds();
   map.fitBounds(mapBoundary);
+  console.log(mapBoundary);
 
   // We'll place a hexagonal grid over the entire mapped area (hexagons are better than
   // squares because square east/west and north/south distance is less than diagonal distance
