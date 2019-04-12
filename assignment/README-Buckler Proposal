@@ -1,0 +1,50 @@
+# Final Project Proposal
+### Buckler, Dave
+
+## Problem / Question
+
+Visits for Emegency care sensitive conditions (ECSC) are highly modifiable by rapid access to quality care and include visits for cardiac arrest, STEMI, stroke, sepsis and trauma. Since every hospital does not (and should not) have the resources to be experts in every condition, estalishing regions of care can aid in the delivery of appropriate quality care to these patients. However, to date, care regionalization has been based on non-acute conditions, where patients have moreof a choice about where to seek care. ECSC - by definition - are emergent and remove this patient decisionmaking. 
+
+To inform development of these regions, it would be beneficial to visualize the spatial distribution of each condition individaully, or in combination.
+
+## The data
+
+Using Medicare claims data from 2013 and 2014, I have previously created a summary file that links zipcodes with claims count data for each of the 5 ECSC. Additionally, hospitals have been clustered based on zipcode coverage similarity, and the data set contains the percentage of each zipcode claims that link to a hospital cluster.
+
+## Technologies used
+
+Planned technologies include:
+
+Node.js - for queries to a PostGIS server setup with the summary data.
+jQuery - to capture user input when interfacing with the site.
+turf - potentially to handle spatial aggregation
+Mapbox - for serving the maptiles and facilitating geolocation functionality
+underscore - because it's so useful, it's bound to find it's way into the script
+
+
+## Design spec
+
+#### User experience
+
+Primary users include the research teams at Jefferson and Penn who are developing these condition-based care regions. Secondary users could include the interested public who are interested in the clustering of hospitals based on utilization.
+
+Users gain a visual understanding of the patterns arising in the data. Additionally, by manipulating the cutoff percentages for inclusion of a zipcode in region, the user can visualze the trade off at each new level.
+
+Noting currently exists for a similar data. There are similar metrics but not websites/apps the perform comparable functionality.
+
+#### Layouts and visual design
+
+The design will require a control panel (likely located on left side 20% sidebar) and a large map section. A second sidebar on the right will appear when needed containing additional information when the user selects a geography on the map. This panel will disappear when closed or when the map selection is cleared.
+
+Top panel will contain some basic orientation information for new users as well as links out to the research team.
+Bottom (tiny) panel will contain data source information and and disclaimers.
+
+## Anticipated difficulties
+
+Adjusting to pulling data in from an asyncronus spatial query. Some time will be spent trying to figure this out, however, if this proves to be too much of a time-sink, will revert to a simple ajax call.
+
+Spatial aggregation may be too resource intensive for using in the browser window. If this proves to be a problem, then the plan will be adjusted to include vector times of another workaround.
+
+## Missing pieces
+
+Node.js functionality for querying data.
