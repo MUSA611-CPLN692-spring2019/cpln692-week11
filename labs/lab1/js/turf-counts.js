@@ -53,6 +53,7 @@ Take a look here: https://docs.mapbox.com/api/navigation/#isochrone
 
 // Global Variables
 var myFeatures;
+var ptsWithin;
 
 // Initialize Leaflet Draw
 var drawControl = new L.Control.Draw({
@@ -74,8 +75,46 @@ map.on('draw:created', function (e) {
       map.removeLayer(myFeatures);
     }
     var type = e.layerType; // The type of shape
-    layer = e.layer; // The Leaflet layer for the shape
-    var id = L.stamp(layer); // The unique Leaflet ID for the layer
-    myFeatures = layer;
+    myFeatures = e.layer; // The Leaflet layer for the shape
+    var id = L.stamp(myFeatures); // The unique Leaflet ID for the layer
+    // myFeatures = layer;
+
+    if(type=='marker') {
+      console.log('this is marker');
+      var buffer = turf.buffer(myFeatures.toGeoJSON(), 1, {units: 'miles'});
+      myFeatures = L.geoJSON(buffer).addTo(map);
+      ptsWithin = turf.pointsWithinPolygon(parsedData, buffer);
+      console.log(ptsWithin.features.length);
+    }
+    if (type=='rectangle') {
+      console.log(e);
+      ptsWithin = turf.pointsWithinPolygon(parsedData, myFeatures.toGeoJSON());
+      console.log(ptsWithin.features.length);
+    }
     map.addLayer(myFeatures);
+
 });
+
+
+
+var bike_data = 'https://www.rideindego.com/stations/json/';
+var parsedData;
+
+$.ajax(bike_data).done(function(dat) {
+  parsedData = dat;
+  bikeLayer = L.geoJSON(parsedData);
+  bikeLayer.addTo(map);
+});
+
+
+
+
+
+
+
+// var ptsWithin = turf.pointsWithinPolygon(points, searchWithin);
+// ptsWithinLayer = L.geoJSON(ptsWithin)
+//
+// L.geoJSON(searchWithin).addTo(map);
+//
+// pointsLayer = L.geoJSON(points).addTo(map);
