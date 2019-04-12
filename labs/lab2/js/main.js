@@ -3,8 +3,8 @@ Leaflet Configuration
 ===================== */
 
 var map = L.map('map', {
-  center: [39.95, -75.16],
-  zoom: 14
+  center: [39.197294, -96.011524],
+  zoom: 4
 });
 basemapURL = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
 
@@ -17,10 +17,16 @@ var Stamen_TonerLite = L.tileLayer(basemapURL, {
 }).addTo(map);
 
 
-var url = '';
+var url = 'https://api.openaq.org/v1/latest?country=US&&parameter=pm25&has_geo=true';
 var jsondata;
+var refined;
 $.ajax(url).done(function(res) {
   jsondata = res;
+  refined = jsondata.results.map((dat) => {
+  console.log(dat.measurements.value);
+  return {location: dat.location, city: dat.city, coords: dat.coordinates, measure: dat.measurements[0].value};
+});
+  refined.forEach((x)=> L.marker([x.coords.latitude,x.coords.longitude]).bindPopup('City:' + x.city + ', Measure:' + x.measure).addTo(map));
 });
 
 
@@ -69,6 +75,7 @@ https://api.openaq.org/v1/locations?city[]=Lisboa&limit=3
 or
 https://api.openaq.org/v1/measurements?country=HU
 
+https://api.openaq.org/v1/measurements?country=US&city=Pittsburgh&sort=desc&parameter=pm25&has_geo=true
 
 2. Use ajax in the console to make that call. Inspect the results.
 
