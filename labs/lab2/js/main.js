@@ -2,26 +2,26 @@
 Leaflet Configuration
 ===================== */
 
-var map = L.map('map', {
-  center: [39.95, -75.16],
-  zoom: 14
-});
+var map = L.map( 'map', {
+	center: [ 39.95, -75.16 ],
+	zoom: 14
+} );
 basemapURL = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
 
-var Stamen_TonerLite = L.tileLayer(basemapURL, {
-  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  subdomains: 'abcd',
-  minZoom: 0,
-  maxZoom: 20,
-  ext: 'png'
-}).addTo(map);
+var Stamen_TonerLite = L.tileLayer( basemapURL, {
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	subdomains: 'abcd',
+	minZoom: 0,
+	maxZoom: 20,
+	ext: 'png'
+} ).addTo( map );
 
 
 var url = '';
 var jsondata;
-$.ajax(url).done(function(res) {
-  jsondata = res;
-});
+$.ajax( url ).done( function ( res ) {
+	jsondata = res;
+} );
 
 
 /* =====================
