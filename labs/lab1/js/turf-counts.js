@@ -53,29 +53,48 @@ Take a look here: https://docs.mapbox.com/api/navigation/#isochrone
 
 // Global Variables
 var myFeatures;
+var ptsWithin = {};
 
 // Initialize Leaflet Draw
-var drawControl = new L.Control.Draw({
-  draw: {
-    polyline: false,
-    polygon: false,
-    circle: false,
-    circlemarker: false,
-    marker: true,
-    rectangle: true,
-  }
-});
+var drawControl = new L.Control.Draw( {
+	draw: {
+		polyline: false,
+		polygon: false,
+		circle: false,
+		circlemarker: false,
+		marker: true,
+		rectangle: true,
+	}
+} );
 
-map.addControl(drawControl);
+map.addControl( drawControl );
 
 // Event which is run every time Leaflet draw creates a new layer
-map.on('draw:created', function (e) {
-    if(myFeatures) {
-      map.removeLayer(myFeatures);
-    }
-    var type = e.layerType; // The type of shape
-    layer = e.layer; // The Leaflet layer for the shape
-    var id = L.stamp(layer); // The unique Leaflet ID for the layer
-    myFeatures = layer;
-    map.addLayer(myFeatures);
-});
+map.on( 'draw:created', function ( e ) {
+	if ( myFeatures ) {
+		map.removeLayer( myFeatures );
+	}
+	var type = e.layerType; // The type of shape
+	layer = e.layer; // The Leaflet layer for the shape
+	var id = L.stamp( layer ); // The unique Leaflet ID for the layer
+	myFeatures = layer;
+	map.addLayer( myFeatures );
+
+	if ( type == "marker" ) {
+		console.log( "A marker is born!" )
+		var buffer = turf.buffer( myFeatures.toGeoJSON(), 1, { units: 'miles' } )
+		myFeatures = L.geoJSON( buffer )
+	}
+
+	map.addLayer( myFeatures );
+	ptsWithin = turf.pointsWithinPolygon( parsedData, myFeatures.toGeoJSON() );
+	console.log( ptsWithin.features.length );
+
+} );
+
+var parsedData = [];
+var pointLayer = [];
+$.ajax( "https://www.rideindego.com/stations/json/" ).done( function ( data ) {
+	parsedData = data;
+	L.geoJSON( parsedData ).addTo( map );
+} )
